@@ -8,7 +8,6 @@ import { isEmpty, isLengthInvalid } from "./../../utils/validation.js";
 
 import MenuItem from "material-ui/MenuItem";
 import SelectField from "material-ui/SelectField";
-import subjectApi from "../../utils/api/subject";
 import curriculumApi from "../../utils/api/curriculum";
 
 //import RefreshIndicator from 'material-ui/RefreshIndicator';
@@ -18,8 +17,11 @@ class AddSubject extends React.Component {
     this.state = {
       name: "",
       status: "",
-      departmentList: [],
+      skill_set: "",
+      curriculum: "",
       departmentId: "",
+      departmentList: [],
+      curriculumList: [],
       invalidName: "",
       errorMessage: ""
     };
@@ -61,7 +63,8 @@ class AddSubject extends React.Component {
   };
 
   async componentDidMount(props) {
-    let departmentList = [];
+    let departmentList = [],
+      curriculumList = [];
     let response;
     let curriculum = {
       courseId: 1,
@@ -81,6 +84,24 @@ class AddSubject extends React.Component {
         );
       }
     }
+
+    response = await curriculumApi.getCurriculumByCourse(curriculum);
+    if (response) {
+      for (let i = 0; i < response.data.data.length; i++) {
+        curriculumList.push(
+          <MenuItem
+            value={response.data.data[i].id}
+            key={i}
+            primaryText={response.data.data[i].name}
+          />
+        );
+      }
+    }
+
+    this.setState({
+      departmentList,
+      curriculumList
+    });
   }
 
   handleChange = (event, index, value) => {
@@ -90,10 +111,22 @@ class AddSubject extends React.Component {
   discardData = () => {
     this.setState({
       name: "",
-      status: ""
+      status: "",
+      curriculum: "",
+      departmentId: "",
+      skill_set: ""
     });
   };
-
+  handleDept = (event, index, value) => {
+    this.setState({
+      departmentId: value
+    });
+  };
+  handleCurriculum = (event, index, value) => {
+    this.setState({
+      curriculum: value
+    });
+  };
   render() {
     return (
       <div>
@@ -115,7 +148,7 @@ class AddSubject extends React.Component {
             errorText={this.state.invalidName}
             floatingLabelText="Skill Set"
             onChange={e => this.handleTextChange(e, "name")}
-            value={this.state.name}
+            value={this.state.skill_set}
             style={{ marginLeft: "36px", display: "inline-block" }}
           />
           <br />
@@ -139,6 +172,15 @@ class AddSubject extends React.Component {
           >
             <MenuItem value={true} primaryText="Active" />
             <MenuItem value={false} primaryText="Not Active" />
+          </SelectField>
+          <br />
+          <SelectField
+            floatingLabelText="Select Curriculum"
+            onChange={this.handleCurriculum}
+            value={this.state.curriculum}
+            style={{ display: "inline-block" }}
+          >
+            {this.state.curriculumList}
           </SelectField>
           <br />
           <br />

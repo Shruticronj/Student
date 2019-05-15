@@ -65,7 +65,7 @@ class AddTeacher extends React.Component {
         });
         if (isEmpty(contact_no)) message = "Contact Number is required";
         else if (isLengthInvalid(contact_no, 10, 10))
-          message = "Length should be 5 characters";
+          message = "Length should be 10 digits";
         else message = "";
         this.setState({
           invalidContactNo: message
@@ -234,21 +234,40 @@ class AddTeacher extends React.Component {
             floatingLabelText="Experience"
             onChange={this.handleExperience}
             value={this.state.experience}
-            style={{ marginLeft: "36px", display: "inline-block" }}
+            style={{ display: "inline-block" }}
           >
             <MenuItem value={"EXPERIENCED"} primaryText="Experienced" />
             <MenuItem value={"FRESHER"} primaryText="Fresher" />
           </SelectField>
           {this && this.state && this.state.experience == "EXPERIENCED" ? (
-            <SelectField
-              hintText="Years of Experience"
-              floatingLabelText="Years of Experience"
-              type="number"
-              onChange={e => this.handleTextChange(e, "yearsExp")}
-              required={true}
-              value={this.state.yearsExp}
-              style={{ display: "inline-block" }}
-            />
+            <div>
+              <SelectField
+                hintText="Years of Experience"
+                floatingLabelText="Years of Experience"
+                type="number"
+                onChange={e => this.handleTextChange(e, "yearsExp")}
+                required={true}
+                value={this.state.yearsExp}
+                style={{ display: "inline-block" }}
+              />
+              <SelectField
+                hintText="Qualification"
+                floatingLabelText="Qualification"
+                onChange={e => this.handleTextChange(e, "qualification")}
+                required={true}
+                value={this.state.qualification}
+                style={{ display: "inline-block" }}
+              >
+                <MenuItem value={"10th"} primaryText="Primary Education" />
+                <MenuItem value={"12th"} primaryText="Secondary Education" />
+                <MenuItem
+                  value={"diploma"}
+                  primaryText="Vocational Qualification"
+                />
+                <MenuItem value={"bachelor"} primaryText="Bachelor's Degree" />
+                <MenuItem value={"master"} primaryText="Master's Degree" />
+              </SelectField>
+            </div>
           ) : (
             <SelectField
               hintText="Qualification"
@@ -257,7 +276,16 @@ class AddTeacher extends React.Component {
               required={true}
               value={this.state.qualification}
               style={{ display: "inline-block" }}
-            />
+            >
+              <MenuItem value={"10th"} primaryText="Primary Education" />
+              <MenuItem value={"12th"} primaryText="Secondary Education" />
+              <MenuItem
+                value={"diploma"}
+                primaryText="Vocational Qualification"
+              />
+              <MenuItem value={"bachelor"} primaryText="Bachelor's Degree" />
+              <MenuItem value={"master"} primaryText="Master's Degree" />
+            </SelectField>
           )}
           <br />
           <br />

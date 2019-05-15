@@ -13,7 +13,7 @@ import store from "./store.js";
 import Student from "./containers/student/Student.jsx";
 import Teacher from "./containers/teacher/teacher.jsx";
 import Subject from "./containers/subject/subject.jsx";
-import Event from './containers/events/event.jsx'
+import Event from "./containers/events/event.jsx";
 
 const history = syncHistoryWithStore(browserHistory, store);
 injectTapEventPlugin();
@@ -27,7 +27,7 @@ render(
         <Route path="/department" component={Department} />
         <Route path="/curriculum" component={Curriculum} />
         <Route path="/student" component={Student} />
-        <Route path="/teacher" component={Teacher} />
+        <Route path="/teacher" component={Teacher} someValue="sideBar" />
         <Route path="/subject" component={Subject} />
         <Route path="/event" component={Event} />
       </Route>

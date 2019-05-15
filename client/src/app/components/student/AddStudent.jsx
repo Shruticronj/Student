@@ -7,8 +7,8 @@ import SelectField from "material-ui/SelectField";
 import "babel-polyfill";
 
 import { isEmpty, isLengthInvalid } from "./../../utils/validation.js";
+import curriculumApi from "../../utils/api/curriculum";
 
-//import RefreshIndicator from 'material-ui/RefreshIndicator';
 class AddStudent extends React.Component {
   constructor(props) {
     super(props);
@@ -19,15 +19,58 @@ class AddStudent extends React.Component {
       contact_no: "",
       email_id: "",
       gender: "",
+      curriculum: "",
       invalidName: "",
       invalidAdmissionNo: "",
       invalidUsername: "",
       invalidContactNo: "",
       invalidEmailId: "",
-      errorMessage: ""
+      errorMessage: "",
+      departmentList: [],
+      curriculumList: [],
+      departmentId: ""
     };
   }
+  async componentDidMount() {
+    let departmentList = [],
+      curriculumList = [];
+    let response;
+    let curriculum = {
+      courseId: 1,
+      academicYearId: 1,
+      semesterId: 1
+    };
+    response = await curriculumApi.getDepartmentList(curriculum);
+    if (response) {
+      for (let i = 0; i < response.data.data.length; i++) {
+        departmentList.push(
+          <MenuItem
+            value={response.data.data[i].department_id}
+            key={i}
+            primaryText={response.data.data[i].department_name}
+          />
+        );
+      }
+    }
 
+    response = await curriculumApi.getCurriculumByCourse(curriculum);
+    if (response) {
+      for (let i = 0; i < response.data.data.length; i++) {
+        curriculumList.push(
+          <MenuItem
+            value={response.data.data[i].id}
+            key={i}
+            primaryText={response.data.data[i].name}
+          />
+        );
+      }
+    }
+
+    this.setState({
+      departmentList,
+      curriculumList
+    });
+  }
   handleTextChange = (event, item) => {
     let message = "";
     switch (item) {
@@ -138,6 +181,21 @@ class AddStudent extends React.Component {
       gender: value
     });
   };
+  handleDept = (event, index, value) => {
+    this.setState({ departmentId: value });
+  };
+
+  handleChange = (event, index, value) => {
+    this.setState({
+      status: value
+    });
+  };
+
+  handleCurriculum = (event, index, value) => {
+    this.setState({
+      curriculum: value
+    });
+  };
 
   render() {
     return (
@@ -188,14 +246,17 @@ class AddStudent extends React.Component {
           <br />
           <br />
           <br />
-          <TextField
-            hintText="Email Id"
-            errorText={this.state.invalidEmailId}
-            floatingLabelText="Email Id"
-            onChange={e => this.handleTextChange(e, "email_id")}
-            value={this.state.email_id}
+          <SelectField
+            hintText="Select Department"
+            errorText={this.state.invalidDeptId}
+            floatingLabelText="Select Department"
+            onChange={this.handleDept}
+            required={true}
+            value={this.state.departmentId}
             style={{ display: "inline-block" }}
-          />
+          >
+            {this.state.departmentList}
+          </SelectField>
 
           <SelectField
             floatingLabelText="Gender"
@@ -206,6 +267,26 @@ class AddStudent extends React.Component {
             <MenuItem value={"FEMALE"} primaryText="Female" />
             <MenuItem value={"MALE"} primaryText="Male" />
           </SelectField>
+          <br />
+          <br />
+          <br />
+
+          <SelectField
+            floatingLabelText="Select Curriculum"
+            onChange={this.handleCurriculum}
+            value={this.state.curriculum}
+            style={{ display: "inline-block" }}
+          >
+            {this.state.curriculumList}
+          </SelectField>
+
+          <TextField
+            hintText="Email Id"
+            errorText={this.state.invalidEmailId}
+            floatingLabelText="Email Id"
+            onChange={e => this.handleTextChange(e, "email_id")}
+            value={this.state.email_id}
+          />
 
           <br />
           <br />
