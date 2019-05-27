@@ -85,7 +85,7 @@ class EditDepartment extends React.Component {
         id: this.props.department.id,
         name: name,
         abbreviated_name: shortName,
-        course_id: 1,
+        // course_id: 1,
         status: this.state.status,
         total_no_of_students: this.state.noOfStudents
       };

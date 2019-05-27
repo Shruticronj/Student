@@ -6,10 +6,11 @@ import RaisedButton from 'material-ui/RaisedButton';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TextField from 'material-ui/TextField';
 import LinearProgress from 'material-ui/LinearProgress';
-import {Link} from 'react-router'
+import {Link} from 'react-router';
 import {Router, browserHistory} from 'react-router';
 import Auth from './../../Auth.js';
 import Snackbar from 'material-ui/Snackbar';
+// import ForgotPassword from '../../containers/ForgotPassword/ForgotPassword.jsx';
 
 var style = {
 
@@ -40,6 +41,7 @@ var style = {
      "PASSWORD_CHANGE":"passwordChange",
      "USERNAME_CHANGE":"textChange"
   }
+
 export default class Login extends React.Component  {
 
   constructor(props) {
@@ -93,11 +95,9 @@ export default class Login extends React.Component  {
 
               break;
     }
-  
 };
 
-
-    updateDimensions() {
+updateDimensions() {
 
     this.setState({   message: false  });
     var w = window,
@@ -255,11 +255,9 @@ return(
           }
         }
      >
+  <CardHeader/>
 
-
-      <CardHeader/>
-
-      <CardText>
+  <CardText>
      
         <span style={style.cardTextStyle}>
           Login
@@ -271,25 +269,25 @@ return(
         onChange={this.handleTouchTap.bind(this , HANDLE_CODES.USERNAME_CHANGE)}
        />
    
-     
-       <TextField
+     <TextField
         hintText="Password"
         type="password"
-
         onChange={this.handleTouchTap.bind(this , HANDLE_CODES.PASSWORD_CHANGE)}
-
         style={{marginTop:'5%'}}
         />
 
-        
         <span style={style.loginButton}>
-
-          <RaisedButton
+        <RaisedButton
               label="Login"
               onTouchTap={this.handleTouchTap.bind(this, HANDLE_CODES.ON_LOGIN)}
               style={{marginTop:'5%'}}
            />
        </span>
+        <div >
+        <Link to='/forgotPassword'>
+        <p style={{textAlign:'center',marginTop:'30px', cursor:'pointer'}}>Forgot password?</p>
+        </Link>
+          </div>
 
       </CardText>
      </Card>

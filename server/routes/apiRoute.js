@@ -1,7 +1,9 @@
 let checkRole= require('./../config/roleCheck');
 let express=require('express')
+let router = express.Router();
 
 let apiRouter = (app) => {
+  // app.use('/api/forgotPassword', require('../api/forgotPassword'));
   app.use('/api/department',checkRole(['admin']), require('../api/department'));
   app.use('/api/curriculum',checkRole(['admin']), require('../api/curriculum'));  
   app.use('/api/student',checkRole(["admin"]),require('../api/student'));

@@ -2,6 +2,8 @@ const express = require('express');
 const passport = require('passport');
 const validator = require('validator');
 const router = new express.Router();
+const userDetailDb = require("../api/userDetail/userDetail.model")();
+let models = require("../sqldb")();
 
 /**
  * Validate the login form
@@ -37,6 +39,51 @@ function validateLoginForm(payload) {
 	};
 }
 
+router.post('/forgotPassword', (req, res) => {
+
+	let email_id= req.body.email_id;
+	let password= req.body.new_password;
+
+	if(email_id && password){
+	userDetailDb.findUserByEmail(models, email_id, password).then(output=>{
+		// console.log("Output--->>>",output);
+		let result_email = output.dataValues.email_id;
+		let updated_pass = output.dataValues.password;
+		let error = output.error;
+		if (result) {
+			res.status(200).json({ changedData: result_email, updatePass: updated_pass, flag: true, message: "Password changed successfully!!" });
+		}
+		else{
+			res.status(500).json({ error: error, flag: false, message: "IS_INTERNAL_SERVER_ERROR" });
+			}
+	})
+}
+	else{
+		console.log("Email_id or password not found!!");
+	}
+}),
+
+router.post('/changePassword', (req, res) => {
+	let username= req.body.username;
+	let password= req.body.new_password;
+	if(email_id && password){
+	userDetailDb.findUserByUsername(models, username, password).then(output=>{
+		let username = output.dataValues.username;
+		let updated_pass = output.dataValues.password;
+		let error = output.error;
+		if (result) {
+			res.status(200).json({ changedData: username, updatePass: updated_pass, flag: true, message: "Password changed successfully!!" });
+		}
+		else{
+			res.status(500).json({ error: error, flag: false, message: "IS_INTERNAL_SERVER_ERROR" });
+			}
+	})
+}
+	else{
+		console.log("Email_id or password not found!!");
+	}
+}),
+
 router.post('/login', (req, res, next) => {
  	const validationResult = validateLoginForm(req.body);
   	if (!validationResult.success) {
@@ -45,9 +92,9 @@ router.post('/login', (req, res, next) => {
 	      message: validationResult.message,
 	      errors: validationResult.errors
     	});
-  	}
-
-  	return passport.authenticate('local-login',(err, token, userData) => {
+		}
+		
+			return passport.authenticate('local-login',(err, token, userData) => {
   		if(err){
   			if(err.name==='IncorrectCredentialsError'){
                 console.log("Incorrect");

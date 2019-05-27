@@ -3,7 +3,6 @@ import AppBar from 'material-ui/AppBar';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 
-
 class DashBoard extends React.Component { 
    constructor(props) {
     super(props);

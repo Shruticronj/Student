@@ -8,7 +8,7 @@ let models  = require('./../sqldb')();
  */
  module.exports = (req, res, next)=> {;
  	if (!req.headers.authorization) {
-    	return res.status(401).end();
+    	return res.status(401).json({message: "Please provide authorization headers with request"}).end();
  }
 
 // get the last part from a authorization header string like "bearer token-value"

@@ -7,8 +7,10 @@ import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Auth from './../Auth.js';
-import {Router, browserHistory} from 'react-router'
-import { connect } from 'react-redux'
+import { Link } from 'react-router';
+import {Router, browserHistory} from 'react-router';
+
+import { connect } from 'react-redux';
 import { getSession, getBatch, getCourse, getDepartment } from '../actions/adminActions.jsx'
 
   var style = {
@@ -45,10 +47,10 @@ import { getSession, getBatch, getCourse, getDepartment } from '../actions/admin
   }
 
   var sessions = [
+     "2015 - 2019",
+     "2014 - 2018",
      "2013 - 2017",
-     "2012 - 2016",
-     "2011 - 2015",
-     "2010 - 2014"
+     "2012 - 2016"
   ];
 
   var HANDLE_CODES = {
@@ -147,8 +149,6 @@ class TopBar extends React.Component {
               }
        >
        <Popover
-
-
           open={this.state.currentSession}
           anchorEl={this.state.anchorEl}
           anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
@@ -174,7 +174,7 @@ class TopBar extends React.Component {
         >
           <Menu>
             <MenuItem primaryText="Edit Profile" />
-            <MenuItem primaryText="Change Password" />
+            <MenuItem primaryText="Change Password" containerElement={<Link to='/changePassword'></Link>} />
           </Menu>
         </Popover>
 

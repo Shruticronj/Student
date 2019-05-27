@@ -6,9 +6,17 @@ import getMuiTheme from "material-ui/styles/getMuiTheme";
 import Avatar from "material-ui/Avatar";
 import { List, ListItem } from "material-ui/List";
 import Divider from "material-ui/Divider";
-let userImage = require("./../images/user.png");
 import { Link } from "react-router";
 import { browserHistory } from "react-router";
+let userImage = require("./../images/user.png");
+let dept = require("./../images/dept.png");
+let dash = require("./../images/dashboard.png");
+let teacher = require("./../images/teacher.jpg");
+let events = require("./../images/events.jpg");
+let subjects = require("./../images/subjects.png");
+let curriculum = require("./../images/curriculum.png");
+let important = require("./../images/important.jpg");
+let teacherStud = require("./../images/t&s.png");
 
 export default class SideBarMenu extends React.Component {
   constructor(props) {
@@ -79,7 +87,7 @@ export default class SideBarMenu extends React.Component {
                 <Link to="/dashboard" style={{ textDecoration: "none" }}>
                   <ListItem
                     primaryText="DashBoard"
-                    leftAvatar={<Avatar src={userImage} />}
+                    leftAvatar={<Avatar src={dash} />}
                     style={{ backgroundColor: list["Dashboard"] }}
                     onTouchTap={this.handleTouchTap.bind(this, "Dashboard")}
                   />
@@ -88,7 +96,7 @@ export default class SideBarMenu extends React.Component {
               <Link to="/department" style={{ textDecoration: "none" }}>
                 <ListItem
                   primaryText="Department"
-                  leftAvatar={<Avatar src={userImage} />}
+                  leftAvatar={<Avatar src={dept} />}
                   style={{ backgroundColor: list["Department"] }}
                   onTouchTap={this.handleTouchTap.bind(this, "Department")}
                 />
@@ -96,7 +104,7 @@ export default class SideBarMenu extends React.Component {
               <Link to="/curriculum" style={{ textDecoration: "none" }}>
                 <ListItem
                   primaryText="Curriculum"
-                  leftAvatar={<Avatar src={userImage} />}
+                  leftAvatar={<Avatar src={curriculum} />}
                   style={{ backgroundColor: list["/curriculum"] }}
                   onTouchTap={this.handleTouchTap.bind(this, "/curriculum")}
                 />
@@ -112,7 +120,7 @@ export default class SideBarMenu extends React.Component {
               <Link to="/teacher" style={{ textDecoration: "none" }}>
                 <ListItem
                   primaryText="Teacher"
-                  leftAvatar={<Avatar src={userImage} />}
+                  leftAvatar={<Avatar src={teacher} />}
                   style={{ backgroundColor: list["Teacher"] }}
                   onTouchTap={this.handleTouchTap.bind(this, "Teacher")}
                 />
@@ -120,7 +128,7 @@ export default class SideBarMenu extends React.Component {
               <Link to="/subject" style={{ textDecoration: "none" }}>
                 <ListItem
                   primaryText="Subjects"
-                  leftAvatar={<Avatar src={userImage} />}
+                  leftAvatar={<Avatar src={subjects} />}
                   style={{ backgroundColor: list["Subjects"] }}
                   onTouchTap={this.handleTouchTap.bind(this, "Subjects")}
                 />
@@ -128,7 +136,7 @@ export default class SideBarMenu extends React.Component {
               <Link to="/event" style={{ textDecoration: "none" }}>
                 <ListItem
                   primaryText="Events"
-                  leftAvatar={<Avatar src={userImage} />}
+                  leftAvatar={<Avatar src={events} />}
                   style={{ backgroundColor: list["Events"] }}
                   onTouchTap={this.handleTouchTap.bind(this, "Events")}
                 />
@@ -139,13 +147,13 @@ export default class SideBarMenu extends React.Component {
           <List>
             <ListItem
               primaryText="Important"
-              leftAvatar={<Avatar src={userImage} />}
+              leftAvatar={<Avatar src={important} />}
               style={{ backgroundColor: list["Important"] }}
               onTouchTap={this.handleTouchTap.bind(this, "Important")}
             />
             <ListItem
               primaryText="Teachers/Students"
-              leftAvatar={<Avatar src={userImage} />}
+              leftAvatar={<Avatar src={teacherStud} />}
               style={{ backgroundColor: list["T/S"] }}
               onTouchTap={this.handleTouchTap.bind(this, "T/S")}
             />

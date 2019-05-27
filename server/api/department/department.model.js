@@ -28,9 +28,9 @@ let init=function() {
             defaultValue:true
         },
         course_id:{
-                        type:sequelize.INTEGER,
-                       allowNull:false
-                     }
+            type:sequelize.INTEGER,
+            allowNull:false
+            }
     },{
         classMethods:{
             associate:function(model){
@@ -57,6 +57,7 @@ let init=function() {
                             data : courseData
                         }
                         cb(response)
+                        return
                     }
                     else{
                         console.log("found course ")
@@ -81,6 +82,7 @@ let init=function() {
                                         data : data
                                     }
                                     cb(response)
+                                    return
                                 }).catch((err)=>{
                                     console.log(err)
                                     let response = {
@@ -89,6 +91,7 @@ let init=function() {
                                         data : err
                                     }
                                     cb(response)
+                                    return
                                 })
                             }
                             else {
@@ -113,6 +116,7 @@ let init=function() {
                                             data : data
                                         }
                                         cb(response)
+                                        return
                                     }).catch((err)=>{
                                         let response = {
                                             status : "0",
@@ -120,6 +124,7 @@ let init=function() {
                                             data : err
                                         }
                                         cb(response)
+                                        return
                                     })
                                 }
                                 else {
@@ -129,6 +134,7 @@ let init=function() {
                                         data : {}
                                     }
                                     cb(response)
+                                    return
                                 }
                             }
                         })
@@ -139,6 +145,7 @@ let init=function() {
                                     data : err
                                 }
                                 cb(response)
+                                return
                             })
                     }
                 })
@@ -148,7 +155,9 @@ let init=function() {
                 let department = models.department
                 department.update({
                     name:curDepartment.name ,
-                    abbreviated_name : curDepartment.abbreviated_name
+                    abbreviated_name : curDepartment.abbreviated_name,
+                    noOfStudents: curDepartment.noOfStudents,
+                    status: curDepartment.status
                 },{
                     where :{
                         id : curDepartment.id,
@@ -162,6 +171,7 @@ let init=function() {
                         msg : "edited successfully"
                     }
                     cb(response)
+                    return
                 })
                 .catch((data)=>{
                     let response = {
@@ -170,6 +180,7 @@ let init=function() {
                         msg :"Internal Server Error"
                     }
                     cb(response)
+                    return
                 })
             },
             deleteDepartment:function(models,cur_id,cb){

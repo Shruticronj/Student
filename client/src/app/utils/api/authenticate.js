@@ -27,6 +27,8 @@ const utils = {
 		return axios.get(url, config);
 	}
 
+	
+
 }
 
 export default utils;

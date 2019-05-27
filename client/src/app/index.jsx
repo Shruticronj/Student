@@ -14,6 +14,8 @@ import Student from "./containers/student/Student.jsx";
 import Teacher from "./containers/teacher/teacher.jsx";
 import Subject from "./containers/subject/subject.jsx";
 import Event from "./containers/events/event.jsx";
+import ForgotPassword from "./containers/ForgotPassword/ForgotPassword.jsx";
+import ChangePassword from "./containers/ChangePassword/ChangePassword.jsx";
 
 const history = syncHistoryWithStore(browserHistory, store);
 injectTapEventPlugin();
@@ -21,8 +23,10 @@ injectTapEventPlugin();
 render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={Login} />
-      <Route path="/dashboard" component={App}>
+    <Route path="/" component={Login} />
+    <Route path="/forgotPassword" component={ForgotPassword} />
+    <Route path="/changePassword" component={ChangePassword} />
+    <Route path="/dashboard" component={App}>
         <IndexRoute component={Dashboard} />
         <Route path="/department" component={Department} />
         <Route path="/curriculum" component={Curriculum} />
